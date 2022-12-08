@@ -1,4 +1,4 @@
-=== LNURL auth for WordPress ===
+=== LNURL Auth For WordPress ===
 
 Contributors: joelmelon
 Donate link: https://lnurl-auth-for-wordpress.joelstuedle.ch/
