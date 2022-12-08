@@ -1,0 +1,19 @@
+{
+    "name": "joelmelon/lnurl-auth",
+    "type": "wordpress-plugin",
+    "autoload": {
+        "psr-4": {
+            "JoelMelon\\Plugins\\LNURLAuth\\": "classes/"
+        }
+    },
+    "require": {
+        "composer/installers": "~1.0",
+        "ezadr/lnurl-php": "^1.0",
+        "endroid/qr-code": "^4.6"
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true
+        }
+    }
+}

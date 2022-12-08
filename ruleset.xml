@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<ruleset name="WordPress">
+	<description>
+		WordPress Ruleset
+	</description>
+	<!-- Use WPCS as a base -->
+	<rule ref="WordPress-Core">
+		<exclude name="Generic.WhiteSpace.DisallowTabIndent" />
+		<exclude name="WordPress.WP.I18n.NonSingularStringLiteralDomain" />
+		<exclude name="WordPress.NamingConventions.ValidVariableName.NotSnakeCaseMemberVar" />
+		<exclude name="WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase" />
+		<exclude name="WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid" />
+		<exclude name="WordPress.Files.FileName.NotHyphenatedLowercase" />
+		<exclude name="WordPress.Files.FileName.InvalidClassFileName" />
+		<exclude name="WordPress.WP.I18n.MissingTranslatorsComment" />
+	</rule>
+</ruleset>

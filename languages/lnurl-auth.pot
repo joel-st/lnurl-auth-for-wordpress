@@ -1,0 +1,367 @@
+# Copyright (C) 2022 joelmelon
+# This file is distributed under the same license as the LNURL auth plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: LNURL auth 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/lnurl-auth\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2022-12-08T13:45:48+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.6.0\n"
+"X-Domain: lnurl-auth\n"
+
+#. Plugin Name of the plugin
+msgid "LNURL auth"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://wordpress.org/plugins/lnurl-auth/"
+msgstr ""
+
+#. Description of the plugin
+msgid "This plugin provides LNURL auth for WordPress. Login to WordPress with Bitcoin Lightning ⚡️."
+msgstr ""
+
+#. Author of the plugin
+msgid "joelmelon"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://lnurl-auth.joelstuedle.ch"
+msgstr ""
+
+#: classes/Assets.php:230
+msgctxt "lnurl_auth_javascript message"
+msgid "Authentication timed out."
+msgstr ""
+
+#: classes/Login.php:127
+msgctxt "lnurl_auth_callback error"
+msgid "Verifying signature failed. Please reload the page and try again."
+msgstr ""
+
+#: classes/Login.php:144
+msgctxt "lnurl_auth_callback error"
+msgid "No session for this k1. Please reload the page and try again."
+msgstr ""
+
+#: classes/Login.php:160
+msgctxt "lnurl_auth_callback error"
+msgid "Sorry, your node is banned from this site."
+msgstr ""
+
+#: classes/Login.php:176
+msgctxt "lnurl_auth_callback error"
+msgid "Sorry, your node has no access to this site."
+msgstr ""
+
+#: classes/Login.php:204
+msgctxt "lnurl_auth_callback error"
+msgid "Registrations are disabled. We are not able to create an account for you."
+msgstr ""
+
+#: classes/Login.php:235
+msgctxt "lnurl_auth_callback error"
+msgid "We failed to create a user for you. Please try again later."
+msgstr ""
+
+#: classes/Login.php:264
+msgctxt "lnurl_auth_callback error"
+msgid "We failed searching for your user account. Please try again later."
+msgstr ""
+
+#: classes/Login.php:285
+msgctxt "lnurl_auth_callback error"
+msgid "Something went wrong. Please reload the page and try again."
+msgstr ""
+
+#: classes/Login.php:351
+msgctxt "create_lnurl error"
+msgid "We failed generating a new unique key for you. Maybe try again later."
+msgstr ""
+
+#: classes/Login.php:404
+msgctxt "QR Code permalink label"
+msgid "Open Wallet"
+msgstr ""
+
+#: classes/Login.php:431
+msgctxt "Loginform button label"
+msgid "⚡️ Login with Bitcoin Lightning"
+msgstr ""
+
+#: classes/Login.php:432
+msgctxt "Loginform option divider"
+msgid "or"
+msgstr ""
+
+#: classes/Login.php:433
+msgctxt "Loginform button label"
+msgid "Login with E-Mail"
+msgstr ""
+
+#: classes/Login.php:470
+msgctxt "QR Code label"
+msgid "⚡️ Login with Bitcoin Lightning"
+msgstr ""
+
+#: classes/Login.php:490
+msgctxt "QR Code timer short minutes"
+msgid "M"
+msgstr ""
+
+#: classes/Login.php:490
+msgctxt "QR Code timer short seconds"
+msgid "SS"
+msgstr ""
+
+#: classes/Login.php:495
+msgctxt "QR Code reinit button label"
+msgid "Try Again"
+msgstr ""
+
+#: classes/Login.php:527
+msgctxt "js_await_lnurl_auth error"
+msgid "No k1 in request. Please reload and try again."
+msgstr ""
+
+#: classes/Login.php:539
+msgctxt "js_await_lnurl_auth error"
+msgid "Session has timed out. Please reload and try again."
+msgstr ""
+
+#: classes/Login.php:559
+msgctxt "js_await_lnurl_auth error"
+msgid "Not yet signed."
+msgstr ""
+
+#: classes/Login.php:572
+msgctxt "js_await_lnurl_auth error"
+msgid "We failed searching for your user account. Please try again later."
+msgstr ""
+
+#. translators: %1$s = already used class name, %2$s = plugin class
+#: classes/Plugin.php:115
+msgctxt "Theme instance load_classes() error message"
+msgid "There was a problem with the Plugin. Only one class with name “%1$s” can be use used in “%2$s”."
+msgstr ""
+
+#: classes/Settings.php:37
+msgctxt "Settings page setting label"
+msgid "Choose which options your users can use to login."
+msgstr ""
+
+#: classes/Settings.php:38
+msgctxt "Settings page setting label"
+msgid "Login Options"
+msgstr ""
+
+#: classes/Settings.php:42
+msgctxt "Settings page setting label"
+msgid "WordPress & Bitcoin Lightning"
+msgstr ""
+
+#: classes/Settings.php:43
+msgctxt "Settings page setting label"
+msgid "Bitcoin Lightning & WordPress"
+msgstr ""
+
+#: classes/Settings.php:44
+msgctxt "Settings page setting label"
+msgid "WordPress Only"
+msgstr ""
+
+#: classes/Settings.php:45
+msgctxt "Settings page setting label"
+msgid "Lightning Only"
+msgstr ""
+
+#: classes/Settings.php:49
+msgctxt "Settings page setting label"
+msgid "Default redirect URL after sucessfull LNURL auth."
+msgstr ""
+
+#: classes/Settings.php:50
+msgctxt "Settings page setting label"
+msgid "Redirect URL"
+msgstr ""
+
+#: classes/Settings.php:55
+msgctxt "Settings page setting label"
+msgid "Wallets will respond to this URL."
+msgstr ""
+
+#: classes/Settings.php:56
+msgctxt "Settings page setting label"
+msgid "Callback URL"
+msgstr ""
+
+#: classes/Settings.php:61
+msgctxt "Settings page setting label"
+msgid "Comma separated list of Node ID's. Nodes from this list will be blocked from using LNURL auth on this website."
+msgstr ""
+
+#: classes/Settings.php:62
+msgctxt "Settings page setting label"
+msgid "Node Banlist"
+msgstr ""
+
+#: classes/Settings.php:67
+msgctxt "Settings page setting label"
+msgid "Comma separated list of Node ID's. Nodes from this list will be allowed to use LNURL auth on this website."
+msgstr ""
+
+#: classes/Settings.php:68
+msgctxt "Settings page setting label"
+msgid "Node Allowlist"
+msgstr ""
+
+#: classes/Settings.php:73
+msgctxt "Settings page setting label"
+msgid "If a node tries to login to your website and no exisiting user can be found, a new user will be created for this node."
+msgstr ""
+
+#: classes/Settings.php:74
+msgctxt "Settings page setting label"
+msgid "Enable Registrations"
+msgstr ""
+
+#: classes/Settings.php:79
+msgctxt "Settings page setting label"
+msgid "If a new user account is created, this prefix gets suffixed by the next available number to create the user_login. E.g. LN-1."
+msgstr ""
+
+#: classes/Settings.php:80
+msgctxt "Settings page setting label"
+msgid "Usercreation prefix"
+msgstr ""
+
+#: classes/Settings.php:85
+#: classes/Settings.php:86
+msgctxt "Settings page setting label"
+msgid "Usercreation roles"
+msgstr ""
+
+#: classes/Settings.php:129
+msgctxt "Settings link in WordPress plugin list"
+msgid "Plugin Settings"
+msgstr ""
+
+#: classes/Settings.php:146
+msgctxt "Plugins settings page title"
+msgid "LNURL Auth"
+msgstr ""
+
+#: classes/Settings.php:147
+msgctxt "Plugins settings menu title"
+msgid "LNURL Auth"
+msgstr ""
+
+#: classes/Settings.php:242
+msgctxt "Settings Page Shortcode Panel"
+msgid "Shortcode Usage"
+msgstr ""
+
+#: classes/Settings.php:244
+msgctxt "Settings Page Shortcode Panel"
+msgid "Shortcode Options"
+msgstr ""
+
+#: classes/Settings.php:245
+msgctxt "Settings Page Shortcode Panel"
+msgid "Redirect to after login"
+msgstr ""
+
+#: classes/Settings.php:247
+msgctxt "Settings Page Shortcode Panel"
+msgid "Show/Hide Label"
+msgstr ""
+
+#: classes/Settings.php:249
+msgctxt "Settings Page Shortcode Panel"
+msgid "Set Foreground Color (Label, Logo, QR, Link, Timer)"
+msgstr ""
+
+#: classes/Settings.php:251
+msgctxt "Settings Page Shortcode Panel"
+msgid "Set Logo Foreground Color"
+msgstr ""
+
+#: classes/Settings.php:253
+msgctxt "Settings Page Shortcode Panel"
+msgid "Set Permalink Foreground Color"
+msgstr ""
+
+#: classes/Settings.php:255
+msgctxt "Settings Page Shortcode Panel"
+msgid "Set Timer Foreground Color"
+msgstr ""
+
+#: classes/Settings.php:257
+msgctxt "Settings Page Shortcode Panel"
+msgid "Note on LNURL Auth Coloring"
+msgstr ""
+
+#: classes/Settings.php:258
+msgctxt "Settings Page Shortcode Panel"
+msgid "The QR Code inherits foreground- and background-color if no color is specified."
+msgstr ""
+
+#: classes/Settings.php:266
+msgctxt "Settings Page Donate Panel"
+msgid "Donate"
+msgstr ""
+
+#: classes/Settings.php:267
+msgctxt "Settings Page Donate Panel"
+msgid "Bitcoin Lightning LNURL"
+msgstr ""
+
+#: classes/Settings.php:296
+msgctxt "Settings Page Donate Panel"
+msgid "Other Options"
+msgstr ""
+
+#: classes/Settings.php:297
+msgctxt "Settings Page Donate Panel"
+msgid "CoinCorner"
+msgstr ""
+
+#: classes/Settings.php:297
+msgctxt "Settings Page Donate Panel"
+msgid "Opennode"
+msgstr ""
+
+#: classes/Settings.php:297
+msgctxt "Settings Page Donate Panel"
+msgid "Coinbase"
+msgstr ""
+
+#: classes/Settings.php:297
+msgctxt "Settings Page Donate Panel"
+msgid "Paypal"
+msgstr ""
+
+#: classes/Settings.php:314
+msgctxt "Settings page heading"
+msgid "Settings › LNURL Auth"
+msgstr ""
+
+#: classes/Settings.php:603
+msgctxt "Admin User Columns Custom Column Name"
+msgid "LNURL Auth"
+msgstr ""
+
+#: classes/Settings.php:634
+msgctxt "Admin User Edit Custom Settings"
+msgid "LNURL Auth"
+msgstr ""
+
+#: classes/Settings.php:636
+msgctxt "Admin User Edit Custom Settings"
+msgid "Public Key"
+msgstr ""
