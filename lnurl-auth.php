@@ -5,7 +5,7 @@
 * Description: This plugin provides LNURL auth for WordPress. Login to WordPress with Bitcoin Lightning ⚡️.
 * Version: 1.0.0
 * Author: joelmelon
-* Author URI: https://lnurl-auth.joelstuedle.ch
+* Author URI: https://lnurl-auth-for-wordpress.joelstuedle.ch
 * Requires at least: 6.0
 * Requires PHP: 8.0.15
 * Text Domain: lnurl-auth
