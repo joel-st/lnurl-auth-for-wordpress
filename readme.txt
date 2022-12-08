@@ -1,4 +1,5 @@
 === LNURL auth for WordPress ===
+
 Contributors: joelmelon
 Donate link: https://joelstuedle.ch/
 Tags: LNURL, Authentication, Login, Bitcoin, Lightning
@@ -37,11 +38,11 @@ LNURL auth login is a specific type of LNURL authentication process that is used
 
 Overall, LNURL auth login is a convenient and secure way for users of the Lightning Network to log into third-party services using their Lightning accounts. It allows users to easily and securely log into services without needing to create separate accounts or handle sensitive information, and it allows third-party services to securely access user accounts without needing to implement their own authentication processes.
 
-Read the specs here: [https://github.com/lnurl/luds/blob/luds/04.md](https://github.com/lnurl/luds/blob/luds/04.md) 
+Read the specs here: https://github.com/lnurl/luds/blob/luds/04.md 
 
 == Vendors ==
-* eza/lnurl-php: [https://github.com/eza/lnurl-php](https://github.com/eza/lnurl-php)
-* endroid/qr-code [https://github.com/endroid/qr-code](https://github.com/endroid/qr-code)
+* eza/lnurl-php: https://github.com/eza/lnurl-php
+* endroid/qr-code https://github.com/endroid/qr-code
 
 == Changelog ==
 
