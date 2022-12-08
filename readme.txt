@@ -41,6 +41,7 @@ Overall, LNURL auth login is a convenient and secure way for users of the Lightn
 Read the specs here: https://github.com/lnurl/luds/blob/luds/04.md 
 
 == Vendors ==
+
 * eza/lnurl-php: https://github.com/eza/lnurl-php
 * endroid/qr-code https://github.com/endroid/qr-code
 
