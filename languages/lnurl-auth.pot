@@ -1,21 +1,21 @@
 # Copyright (C) 2022 joelmelon
-# This file is distributed under the same license as the LNURL auth plugin.
+# This file is distributed under the same license as the LNURL Auth plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: LNURL auth 1.0.0\n"
+"Project-Id-Version: LNURL Auth 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/lnurl-auth\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-12-08T13:45:48+00:00\n"
+"POT-Creation-Date: 2022-12-08T13:53:16+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: lnurl-auth\n"
 
 #. Plugin Name of the plugin
-msgid "LNURL auth"
+msgid "LNURL Auth"
 msgstr ""
 
 #. Plugin URI of the plugin
@@ -31,7 +31,7 @@ msgid "joelmelon"
 msgstr ""
 
 #. Author URI of the plugin
-msgid "https://lnurl-auth.joelstuedle.ch"
+msgid "https://lnurl-auth-for-wordpress.joelstuedle.ch"
 msgstr ""
 
 #: classes/Assets.php:230
