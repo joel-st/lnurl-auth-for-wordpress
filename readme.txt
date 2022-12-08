@@ -1,7 +1,7 @@
 === LNURL auth for WordPress ===
 
 Contributors: joelmelon
-Donate link: https://joelstuedle.ch/
+Donate link: https://lnurl-auth-for-wordpress.joelstuedle.ch/
 Tags: LNURL, Authentication, Login, Bitcoin, Lightning
 Requires at least: 6.0
 Requires PHP: 8.0.15
