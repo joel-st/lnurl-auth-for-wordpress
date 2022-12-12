@@ -6,7 +6,7 @@ Tags: LNURL, Authentication, Login, Bitcoin, Lightning
 Requires at least: 6.0
 Requires PHP: 8.0.15
 Tested up to: 6.1.1
-Stable tag: trunk
+Stable tag: 1.0.0
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 

@@ -112,7 +112,7 @@ class Plugin {
 
 			if ( property_exists( lnurl_auth()->{$class_set}, $class_short ) ) {
 				/* translators: %1$s = already used class name, %2$s = plugin class */
-				wp_die( sprintf( _x( 'There was a problem with the Plugin. Only one class with name “%1$s” can be use used in “%2$s”.', 'Theme instance load_classes() error message', 'lnurl-auth' ), $class_short, $class_set ), 500 );
+				wp_die( sprintf( esc_html( _x( 'There was a problem with the Plugin. Only one class with name “%1$s” can be use used in “%2$s”.', 'Theme instance load_classes() error message', 'lnurl-auth' ) ), $class_short, $class_set ), 500 );
 			}
 
 			lnurl_auth()->{$class_set}->{$class_short} = new $class();

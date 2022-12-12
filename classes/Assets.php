@@ -346,9 +346,14 @@ class Assets {
 	 */
 	public function lnurl_auth_admin_css() {
 		return '
+		@media (min-width: 500px) {
+			.lnurl-auth-admin-donate-grid { display: grid; grid-gap: 20px; grid-template-columns: 45% 55%; }
+		}
 		@media (min-width: 1200px) {
 			.lnurl-auth-admin-columns { display: grid; grid-gap: 20px; grid-template-columns: 1fr 350px; }
+			.lnurl-auth-admin-donate-grid { display: block; }
 		}
+
 		.lnurl-auth-admin-columns .card { max-width: none; }
 		.lnurl-auth-settings-group label,
 		.lnurl-auth-settings-group input[type="text"],

@@ -85,18 +85,23 @@ class Login {
 	 * @since 1.0.0
 	 */
 	public function lnurl_auth_callback() {
-		$current_url  = isset( $_SERVER['HTTPS'] ) && 'on' === $_SERVER['HTTPS'] ? 'https://' : 'http://';
-		$current_url .= $_SERVER['HTTP_HOST'];
-
-		if ( isset( $_SERVER['PHP_SELF'] ) ) {
-			$current_url .= $_SERVER['PHP_SELF'];
-		}
+		$url         = sanitize_url( wp_guess_url() );
+		$current_url = $url . '/';
 
 		if ( isset( $_SERVER['REDIRECT_URL'] ) ) {
-			$current_url .= $_SERVER['REDIRECT_URL'];
+			$current_url  = rtrim( $url, '/' );
+			$current_url .= sanitize_text_field( $_SERVER['REDIRECT_URL'] );
 		}
 
-		if ( $this->callback_url === $current_url && // is callback url
+		$current_url_self = ( '/' !== $current_url[-1] ) ? $current_url : $current_url . 'index.php';
+		if ( isset( $_SERVER['PHP_SELF'] ) && '/' === $current_url[-1] ) {
+			$current_url_self = $current_url . sanitize_file_name( $_SERVER['PHP_SELF'] );
+		}
+
+		if ( ( $this->callback_url === $current_url ||
+			$this->callback_url === $url ||
+			$this->callback_url === $current_url_self
+		) && // is callback url
 		'GET' === $_SERVER['REQUEST_METHOD'] && // is GET request
 		isset( $_GET ) &&
 		isset( $_GET['tag'] ) &&
@@ -107,9 +112,9 @@ class Login {
 		isset( $_GET['sig'] ) &&
 		isset( $_GET['key'] )
 		) {
-			$k1               = $_GET['k1'];
-			$signed_k1        = $_GET['sig'];
-			$node_linking_key = $_GET['key'];
+			$k1               = sanitize_text_field( $_GET['k1'] );
+			$signed_k1        = sanitize_text_field( $_GET['sig'] );
+			$node_linking_key = sanitize_text_field( $_GET['key'] );
 
 			// remove expired transients proactively
 			delete_expired_transients();
@@ -124,7 +129,7 @@ class Login {
 			try {
 				$signed = lnurl\auth( $k1, $signed_k1, $node_linking_key );
 			} catch ( \Throwable $th ) {
-				$message = '"' . $th->getMessage() . '": ' . _x( 'Verifying signature failed. Please reload the page and try again.', 'lnurl_auth_callback error', 'lnurl-auth' );
+				$message = '"' . $th->getMessage() . '": ' . esc_html( _x( 'Verifying signature failed. Please reload the page and try again.', 'lnurl_auth_callback error', 'lnurl-auth' ) );
 				lnurl_auth()->Plugin->Transients->set( $k1, false, false, $message );
 				error_log( json_encode( array( $k1, $signed_k1, $node_linking_key, $message ) ) );
 				echo json_encode(
@@ -141,7 +146,7 @@ class Login {
 				$transient = lnurl_auth()->Plugin->Transients->get( $k1 );
 
 				if ( empty( $transient ) || ( isset( $transient['user_id'] ) && ! empty( $transient['user_id'] ) ) ) {
-					$message = _x( 'No session for this k1. Please reload the page and try again.', 'lnurl_auth_callback error', 'lnurl-auth' );
+					$message = esc_html( _x( 'No session for this k1. Please reload the page and try again.', 'lnurl_auth_callback error', 'lnurl-auth' ) );
 					lnurl_auth()->Plugin->Transients->set( $k1, false, false, $message );
 					error_log( json_encode( array( $k1, $signed_k1, $node_linking_key, $message ) ) );
 					echo wp_json_encode(
@@ -157,7 +162,7 @@ class Login {
 				$banlist = get_option( lnurl_auth()->prefix . '-node-banlist' );
 
 				if ( in_array( $node_linking_key, $banlist, true ) ) {
-					$message = _x( 'Sorry, your node is banned from this site.', 'lnurl_auth_callback error', 'lnurl-auth' );
+					$message = esc_html( _x( 'Sorry, your node is banned from this site.', 'lnurl_auth_callback error', 'lnurl-auth' ) );
 					lnurl_auth()->Plugin->Transients->set( $k1, false, false, $message );
 					error_log( json_encode( array( $k1, $signed_k1, $node_linking_key, $message ) ) );
 					echo wp_json_encode(
@@ -173,7 +178,7 @@ class Login {
 				$allowlist = get_option( lnurl_auth()->prefix . '-node-allowlist' );
 
 				if ( ! empty( $allowlist ) && ! in_array( $node_linking_key, $allowlist, true ) ) {
-					$message = _x( 'Sorry, your node has no access to this site.', 'lnurl_auth_callback error', 'lnurl-auth' );
+					$message = esc_html( _x( 'Sorry, your node has no access to this site.', 'lnurl_auth_callback error', 'lnurl-auth' ) );
 					lnurl_auth()->Plugin->Transients->set( $k1, false, false, $message );
 					error_log( json_encode( array( $k1, $signed_k1, $node_linking_key, $message ) ) );
 					echo wp_json_encode(
@@ -201,7 +206,7 @@ class Login {
 
 					// if no user exists and usercreation is off
 					if ( 'on' !== get_option( lnurl_auth()->prefix . '-usercreation' ) ) {
-						$message = _x( 'Registrations are disabled. We are not able to create an account for you.', 'lnurl_auth_callback error', 'lnurl-auth' );
+						$message = esc_html( _x( 'Registrations are disabled. We are not able to create an account for you.', 'lnurl_auth_callback error', 'lnurl-auth' ) );
 						lnurl_auth()->Plugin->Transients->set( $k1, false, false, $message );
 						error_log( json_encode( array( $k1, $signed_k1, $node_linking_key, $message ) ) );
 						echo wp_json_encode(
@@ -228,11 +233,14 @@ class Login {
 
 					$username = $username . $number;
 
-					$user_id = wp_create_user( $username, bin2hex( random_bytes( 16 ) ), strtolower( $username ) . '@' . $_SERVER['HTTP_HOST'] );
+					$domain  = sanitize_url( wp_guess_url() );
+					$domain  = str_replace( 'https://', '', $domain );
+					$domain  = str_replace( 'http://', '', $domain );
+					$user_id = wp_create_user( $username, bin2hex( random_bytes( 16 ) ), strtolower( $username ) . '@' . $domain );
 
 					// if usercreation failed
 					if ( is_wp_error( $user_id ) ) {
-						$message = _x( 'We failed to create a user for you. Please try again later.', 'lnurl_auth_callback error', 'lnurl-auth' );
+						$message = esc_html( _x( 'We failed to create a user for you. Please try again later.', 'lnurl_auth_callback error', 'lnurl-auth' ) );
 						lnurl_auth()->Plugin->Transients->set( $k1, false, false, $message );
 						error_log( json_encode( array( $k1, $signed_k1, $node_linking_key, $message ) ) );
 						echo wp_json_encode(
@@ -261,7 +269,7 @@ class Login {
 					if ( $user_id ) {
 						$user = get_user_by( 'id', $user_id );
 					} else {
-						$message = _x( 'We failed searching for your user account. Please try again later.', 'lnurl_auth_callback error', 'lnurl-auth' );
+						$message = esc_html( _x( 'We failed searching for your user account. Please try again later.', 'lnurl_auth_callback error', 'lnurl-auth' ) );
 						lnurl_auth()->Plugin->Transients->set( $k1, false, false, $message );
 						error_log( json_encode( array( $k1, $signed_k1, $node_linking_key, $message ) ) );
 						echo wp_json_encode(
@@ -282,7 +290,7 @@ class Login {
 			}
 
 			// why are you down here?
-			$message = _x( 'Something went wrong. Please reload the page and try again.', 'lnurl_auth_callback error', 'lnurl-auth' );
+			$message = esc_html( _x( 'Something went wrong. Please reload the page and try again.', 'lnurl_auth_callback error', 'lnurl-auth' ) );
 			lnurl_auth()->Plugin->Transients->set( $k1, false, false, $message );
 			error_log( json_encode( array( $k1, $signed_k1, $node_linking_key, $message ) ) );
 			echo json_encode(
@@ -425,12 +433,12 @@ class Login {
 			echo '<div class="lnurl-auth-loginform">';
 
 			// qrcode
-			echo do_shortcode( '[lnurl_auth label="true" foreground="#000000" redirect="' . $this->redirect_url . '"]' );
+			echo do_shortcode( '[lnurl_auth label="true" foreground="#000000" redirect="' . esc_html( $this->redirect_url ) . '"]' );
 
 			// buttons
-			echo '<button onclick="document.body.classList.toggle(`⚡️`)" class="lnurl-auth-loginform-lightning-button button button-primary button-large"type="button">' . _x( '⚡️ Login with Bitcoin Lightning', 'Loginform button label', 'lnurl-auth' ) . '</button>';
-			echo '<div class="lnurl-auth-loginform-divider"><hr class="lnurl-auth-loginform-hr"><span class="lnurl-auth-loginform-divider-label">' . _x( 'or', 'Loginform option divider', 'lnurl-auth' ) . '</span></div>';
-			echo '<button onclick="document.body.classList.toggle(`⚡️`)" class="lnurl-auth-loginform-wordpress-button button button-primary button-large" type="button">' . _x( 'Login with E-Mail', 'Loginform button label', 'lnurl-auth' ) . '</button>';
+			echo '<button onclick="document.body.classList.toggle(`⚡️`)" class="lnurl-auth-loginform-lightning-button button button-primary button-large"type="button">' . esc_html( _x( '⚡️ Login with Bitcoin Lightning', 'Loginform button label', 'lnurl-auth' ) ) . '</button>';
+			echo '<div class="lnurl-auth-loginform-divider"><hr class="lnurl-auth-loginform-hr"><span class="lnurl-auth-loginform-divider-label">' . esc_html( _x( 'or', 'Loginform option divider', 'lnurl-auth' ) ) . '</span></div>';
+			echo '<button onclick="document.body.classList.toggle(`⚡️`)" class="lnurl-auth-loginform-wordpress-button button button-primary button-large" type="button">' . esc_html( _x( 'Login with E-Mail', 'Loginform button label', 'lnurl-auth' ) ) . '</button>';
 
 			echo '</div>';
 		}
@@ -444,35 +452,35 @@ class Login {
 	public function lnurl_auth_markup( $atts = false ) {
 		echo '<div class="lnurl-auth"';
 		if ( ( ! empty( $atts ) && isset( $atts['redirect'] ) ) ) {
-			echo ' data-redirect="' . $atts['redirect'] . '"';
+			echo ' data-redirect="' . esc_html( $atts['redirect'] ) . '"';
 		}
 		if ( ( ! empty( $atts ) && isset( $atts['foreground'] ) ) ) {
-			echo ' data-foreground="' . $atts['foreground'] . '"';
+			echo ' data-foreground="' . esc_html( $atts['foreground'] ) . '"';
 		}
 		if ( ( ! empty( $atts ) && isset( $atts['background'] ) ) ) {
-			echo ' data-background="' . $atts['background'] . '"';
+			echo ' data-background="' . esc_html( $atts['background'] ) . '"';
 		}
 		if ( ( ! empty( $atts ) && isset( $atts['logo-foreground'] ) ) ) {
-			echo ' data-logo-foreground="' . $atts['logo-foreground'] . '"';
+			echo ' data-logo-foreground="' . esc_html( $atts['logo-foreground'] ) . '"';
 		}
 		if ( ( ! empty( $atts ) && isset( $atts['permalink-foreground'] ) ) ) {
-			echo ' data-permalink-foreground="' . $atts['permalink-foreground'] . '"';
+			echo ' data-permalink-foreground="' . esc_html( $atts['permalink-foreground'] ) . '"';
 		}
 		if ( ( ! empty( $atts ) && isset( $atts['timer-foreground'] ) ) ) {
-			echo ' data-timer-foreground="' . $atts['timer-foreground'] . '"';
+			echo ' data-timer-foreground="' . esc_html( $atts['timer-foreground'] ) . '"';
 		}
 		if ( ( ! empty( $atts ) && isset( $atts['foreground'] ) ) ) {
-			echo ' style="color: ' . $atts['foreground'] . '"';
+			echo ' style="color: ' . esc_html( $atts['foreground'] ) . '"';
 		}
 		echo '>';
 
 		if ( empty( $atts ) || ( ! empty( $atts ) && isset( $atts['label'] ) && 'true' === $atts['label'] ) ) {
-			echo '<label class="lnurl-auth-label" for="lnurl-auth">' . _x( '⚡️ Login with Bitcoin Lightning', 'QR Code label', 'lnurl-auth' ) . '</label>';
+			echo '<label class="lnurl-auth-label" for="lnurl-auth">' . esc_html( _x( '⚡️ Login with Bitcoin Lightning', 'QR Code label', 'lnurl-auth' ) ) . '</label>';
 		}
 
 		echo '<div class="lnurl-auth-qrcode-wrapper"';
 		if ( ( ! empty( $atts ) && isset( $atts['logo-foreground'] ) ) ) {
-			echo ' style="color: ' . $atts['logo-foreground'] . '"';
+			echo ' style="color: ' . esc_html( $atts['logo-foreground'] ) . '"';
 		}
 		echo '>';
 		echo '<div class="lnurl-auth-qrcode"></div>';
@@ -480,19 +488,19 @@ class Login {
 		echo '</div>';
 		echo '<p class="lnurl-auth-permalink"';
 		if ( ( ! empty( $atts ) && isset( $atts['permalink-foreground'] ) ) ) {
-			echo ' style="color: ' . $atts['permalink-foreground'] . '"';
+			echo ' style="color: ' . esc_html( $atts['permalink-foreground'] ) . '"';
 		}
 		echo '></p>';
 		echo '<p class="lnurl-auth-timer"';
 		if ( ( ! empty( $atts ) && isset( $atts['timer-foreground'] ) ) ) {
-			echo ' style="color: ' . $atts['timer-foreground'] . '"';
+			echo ' style="color: ' . esc_html( $atts['timer-foreground'] ) . '"';
 		}
-		echo '><span class="lnurl-auth-timer-clock">🕛</span> <span class="lnurl-auth-timer-minutes">' . _x( 'M', 'QR Code timer short minutes', 'lnurl-auth' ) . '</span><span class="lnurl-auth-timer-separator">:</span><span class="lnurl-auth-timer-seconds">' . _x( 'SS', 'QR Code timer short seconds', 'lnurl-auth' ) . '</span></p>';
+		echo '><span class="lnurl-auth-timer-clock">🕛</span> <span class="lnurl-auth-timer-minutes">' . esc_html( _x( 'M', 'QR Code timer short minutes', 'lnurl-auth' ) ) . '</span><span class="lnurl-auth-timer-separator">:</span><span class="lnurl-auth-timer-seconds">' . esc_html( _x( 'SS', 'QR Code timer short seconds', 'lnurl-auth' ) ) . '</span></p>';
 
 		echo '<div class="lnurl-auth-message-wrapper">';
 		echo '<div class="lnurl-auth-message-scroll-wrapper">';
 		echo '<div class="lnurl-auth-message"></div>';
-		echo '<button class="lnurl-auth-reinit" type="button">' . _x( 'Try Again', 'QR Code reinit button label', 'lnurl-auth' ) . '</button>';
+		echo '<button class="lnurl-auth-reinit" type="button">' . esc_html( _x( 'Try Again', 'QR Code reinit button label', 'lnurl-auth' ) ) . '</button>';
 		echo '</div>';
 		echo '</div>';
 
@@ -524,7 +532,7 @@ class Login {
 			echo wp_json_encode(
 				array(
 					'status' => 'Error',
-					'reason' => _x( 'No k1 in request. Please reload and try again.', 'js_await_lnurl_auth error', 'lnurl-auth' ),
+					'reason' => esc_html( _x( 'No k1 in request. Please reload and try again.', 'js_await_lnurl_auth error', 'lnurl-auth' ) ),
 				)
 			);
 			die;
@@ -536,7 +544,7 @@ class Login {
 			echo wp_json_encode(
 				array(
 					'status' => 'Timedout',
-					'reason' => _x( 'Session has timed out. Please reload and try again.', 'js_await_lnurl_auth error', 'lnurl-auth' ),
+					'reason' => esc_html( _x( 'Session has timed out. Please reload and try again.', 'js_await_lnurl_auth error', 'lnurl-auth' ) ),
 				)
 			);
 			die;
@@ -546,7 +554,7 @@ class Login {
 			echo wp_json_encode(
 				array(
 					'status' => 'Error',
-					'reason' => $transient['message'],
+					'reason' => esc_html( $transient['message'] ),
 				)
 			);
 			die;
@@ -556,7 +564,7 @@ class Login {
 			echo wp_json_encode(
 				array(
 					'status' => 'Waiting',
-					'reason' => _x( 'Not yet signed.', 'js_await_lnurl_auth error', 'lnurl-auth' ),
+					'reason' => esc_html( _x( 'Not yet signed.', 'js_await_lnurl_auth error', 'lnurl-auth' ) ),
 				)
 			);
 			die;
@@ -569,7 +577,7 @@ class Login {
 			echo wp_json_encode(
 				array(
 					'status' => 'Error',
-					'reason' => _x( 'We failed searching for your user account. Please try again later.', 'js_await_lnurl_auth error', 'lnurl-auth' ),
+					'reason' => esc_html( _x( 'We failed searching for your user account. Please try again later.', 'js_await_lnurl_auth error', 'lnurl-auth' ) ),
 				)
 			);
 			die;
@@ -586,7 +594,7 @@ class Login {
 		echo wp_json_encode(
 			array(
 				'status'   => 'Signed',
-				'redirect' => $this->redirect_url,
+				'redirect' => esc_html( $this->redirect_url ),
 			)
 		);
 		die;
