@@ -289,9 +289,7 @@ class Settings {
 
 		echo '<div class="lnurl-auth-admin-donate-qrcode">';
 		echo '<span>🧡</span>';
-		// escape here
-		$html_qrcode = '<img src="' . esc_attr( $result->getDataUri() ) . '" alt="QR Code" width="100%" height="100%">';
-		echo $html_qrcode;
+		echo '<img src="' . esc_attr( $result->getDataUri() ) . '" alt="QR Code" width="100%" height="100%">';
 		echo '</div>';
 		echo '</div>';
 
@@ -332,18 +330,18 @@ class Settings {
 			case 'boolean':
 				echo '<tr valign="top">';
 				echo '<th scope="row">';
-				echo $data['label'];
+				echo esc_html( $data['label'] );
 				echo '</th>';
 				echo '<td>';
 				if ( ! empty( $data['legend'] ) ) {
-					echo '<div class="' . $this->settings_group . '-legend' . '">' . $data['legend'] . '</div>';
+					echo '<div class="' . esc_html( $this->settings_group ) . '-legend' . '">' . esc_html( $data['legend'] ) . '</div>';
 				}
 				echo '<fieldset>';
 				echo '<legend class="screen-reader-text">';
-				echo '<span>' . $data['label'] . '</span>';
+				echo '<span>' . esc_html( $data['label'] ) . '</span>';
 				echo '</legend>';
-				echo '<label for="' . $name . '">';
-				echo '<input name="' . $name . '" type="checkbox" id="' . $name . '" ' . checked( 1, 'on' === get_option( $name ), false ) . '> ' . $data['label'];
+				echo '<label for="' . esc_html( $name ) . '">';
+				echo '<input name="' . esc_html( $name ) . '" type="checkbox" id="' . esc_html( $name ) . '" ' . checked( 1, 'on' === get_option( $name ), false ) . '> ' . esc_html( $data['label'] );
 				echo '</label>';
 				echo '</fieldset>';
 				echo '</td>';
@@ -352,17 +350,17 @@ class Settings {
 			case 'number':
 				echo '<tr valign="top">';
 				echo '<th scope="row">';
-				echo $data['label'];
+				echo esc_html( $data['label'] );
 				echo '</th>';
 				echo '<td>';
 				if ( ! empty( $data['legend'] ) ) {
-					echo '<div class="' . $this->settings_group . '-legend' . '">' . $data['legend'] . '</div>';
+					echo '<div class="' . esc_html( $this->settings_group ) . '-legend' . '">' . esc_html( $data['legend'] ) . '</div>';
 				}
 				echo '<legend class="screen-reader-text">';
-				echo '<span>' . $data['label'] . '</span>';
+				echo '<span>' . esc_html( $data['label'] ) . '</span>';
 				echo '</legend>';
-				echo '<label for="' . $name . '">';
-				echo '<input name="' . $name . '" type="number" step="0.01" id="' . $name . '" value="' . get_option( $name ) . '"> ' . $data['label'];
+				echo '<label for="' . esc_html( $name ) . '">';
+				echo '<input name="' . esc_html( $name ) . '" type="number" step="0.01" id="' . esc_html( $name ) . '" value="' . esc_html( get_option( $name ) ) . '"> ' . esc_html( $data['label'] );
 				echo '</label>';
 				echo '</td>';
 				echo '</tr>';
@@ -370,23 +368,23 @@ class Settings {
 			case 'select':
 				echo '<tr valign="top">';
 				echo '<th scope="row">';
-				echo $data['label'];
+				echo esc_html( $data['label'] );
 				echo '</th>';
 				echo '<td>';
 				if ( ! empty( $data['legend'] ) ) {
-					echo '<div class="' . $this->settings_group . '-legend' . '">' . $data['legend'] . '</div>';
+					echo '<div class="' . esc_html( $this->settings_group ) . '-legend' . '">' . esc_html( $data['legend'] ) . '</div>';
 				}
 				echo '<legend class="screen-reader-text">';
-				echo '<span>' . $data['label'] . '</span>';
+				echo '<span>' . esc_html( $data['label'] ) . '</span>';
 				echo '</legend>';
-				echo '<label for="' . $name . '">';
-				echo '<select name="' . $name . '" id="' . $name . '">';
+				echo '<label for="' . esc_html( $name ) . '">';
+				echo '<select name="' . esc_html( $name ) . '" id="' . esc_html( $name ) . '">';
 				foreach ( $data['options'] as $value => $label ) {
-					echo '<option value="' . $value . '"';
+					echo '<option value="' . esc_html( $value ) . '"';
 					if ( get_option( $name ) === $value ) {
 						echo ' selected';
 					}
-					echo '>' . $label . '</option>';
+					echo '>' . esc_html( $label ) . '</option>';
 				}
 				echo '</select>';
 				echo '</label>';
@@ -396,24 +394,24 @@ class Settings {
 			case 'multiselect':
 				echo '<tr valign="top">';
 				echo '<th scope="row">';
-				echo $data['label'];
+				echo esc_html( $data['label'] );
 				echo '</th>';
 				echo '<td>';
 				if ( ! empty( $data['legend'] ) ) {
-					echo '<div class="' . $this->settings_group . '-legend' . '">' . $data['legend'] . '</div>';
+					echo '<div class="' . esc_html( $this->settings_group ) . '-legend' . '">' . esc_html( $data['legend'] ) . '</div>';
 				}
 				echo '<legend class="screen-reader-text">';
-				echo '<span>' . $data['label'] . '</span>';
+				echo '<span>' . esc_html( $data['label'] ) . '</span>';
 				echo '</legend>';
-				echo '<label for="' . $name . '">';
-				echo '<select name="' . $name . '[]" id="' . $name . '" multiple="multiple">';
+				echo '<label for="' . esc_html( $name ) . '">';
+				echo '<select name="' . esc_html( $name ) . '[]" id="' . esc_html( $name ) . '" multiple="multiple">';
 
 				foreach ( $data['options'] as $value => $label ) {
-					echo '<option value="' . $value . '"';
+					echo '<option value="' . esc_html( $value ) . '"';
 					if ( in_array( $value, get_option( $name ), true ) ) {
 						echo ' selected';
 					}
-					echo '>' . $label . '</option>';
+					echo '>' . esc_html( $label ) . '</option>';
 				}
 				echo '</select>';
 				echo '</label>';
@@ -423,18 +421,18 @@ class Settings {
 			case 'strings-comma-separated':
 				echo '<tr valign="top">';
 				echo '<th scope="row">';
-				echo $data['label'];
+				echo esc_html( $data['label'] );
 				echo '</th>';
 				echo '<td>';
 				if ( ! empty( $data['legend'] ) ) {
-					echo '<div class="' . $this->settings_group . '-legend' . '">' . $data['legend'] . '</div>';
+					echo '<div class="' . esc_html( $this->settings_group ) . '-legend' . '">' . esc_html( $data['legend'] ) . '</div>';
 				}
 				echo '<legend class="screen-reader-text">';
-				echo '<span>' . $data['label'] . '</span>';
+				echo '<span>' . esc_html( $data['label'] ) . '</span>';
 				echo '</legend>';
-				echo '<label for="' . $name . '">';
-				echo '<textarea name="' . $name . '" id="' . $name . '" rows="6">';
-				echo implode( ', ', (array) get_option( $name ) );
+				echo '<label for="' . esc_html( $name ) . '">';
+				echo '<textarea name="' . esc_html( $name ) . '" id="' . $name . '" rows="6">';
+				echo esc_html( implode( ', ', (array) get_option( $name ) ) );
 				echo '</textarea>';
 				echo '</label>';
 				echo '</td>';
@@ -443,17 +441,17 @@ class Settings {
 			case 'string':
 				echo '<tr valign="top">';
 				echo '<th scope="row">';
-				echo $data['label'];
+				echo esc_html( $data['label'] );
 				echo '</th>';
 				echo '<td>';
 				if ( ! empty( $data['legend'] ) ) {
-					echo '<div class="' . $this->settings_group . '-legend' . '">' . $data['legend'] . '</div>';
+					echo '<div class="' . $this->settings_group . '-legend' . '">' . esc_html( $data['legend'] ) . '</div>';
 				}
 				echo '<legend class="screen-reader-text">';
-				echo '<span>' . $data['label'] . '</span>';
+				echo '<span>' . esc_html( $data['label'] ) . '</span>';
 				echo '</legend>';
-				echo '<label for="' . $name . '">';
-				echo '<input name="' . $name . '" type="text" id="' . $name . '" value="' . get_option( $name ) . '">';
+				echo '<label for="' . esc_html( $name ) . '">';
+				echo '<input name="' . esc_html( $name ) . '" type="text" id="' . esc_html( $name ) . '" value="' . esc_html( get_option( $name ) ) . '">';
 				echo '</label>';
 				echo '</td>';
 				echo '</tr>';
@@ -461,17 +459,17 @@ class Settings {
 			case 'url':
 				echo '<tr valign="top">';
 				echo '<th scope="row">';
-				echo $data['label'];
+				echo esc_html( $data['label'] );
 				echo '</th>';
 				echo '<td>';
 				if ( ! empty( $data['legend'] ) ) {
-					echo '<div class="' . $this->settings_group . '-legend' . '">' . $data['legend'] . '</div>';
+					echo '<div class="' . $this->settings_group . '-legend' . '">' . esc_html( $data['legend'] ) . '</div>';
 				}
 				echo '<legend class="screen-reader-text">';
-				echo '<span>' . $data['label'] . '</span>';
+				echo '<span>' . esc_html( $data['label'] ) . '</span>';
 				echo '</legend>';
-				echo '<label for="' . $name . '">';
-				echo '<input name="' . $name . '" type="url" id="' . $name . '" value="' . get_option( $name ) . '">';
+				echo '<label for="' . esc_html( $name ) . '">';
+				echo '<input name="' . esc_html( $name ) . '" type="url" id="' . esc_html( $name ) . '" value="' . esc_html( get_option( $name ) ) . '">';
 				echo '</label>';
 				echo '</td>';
 				echo '</tr>';
