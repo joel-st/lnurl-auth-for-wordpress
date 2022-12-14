@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-12-12T17:59:56+00:00\n"
+"POT-Creation-Date: 2022-12-14T21:24:25+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: lnurl-auth\n"
@@ -84,62 +84,62 @@ msgctxt "create_lnurl error"
 msgid "We failed generating a new unique key for you. Maybe try again later."
 msgstr ""
 
-#: classes/Login.php:412
+#: classes/Login.php:414
 msgctxt "QR Code permalink label"
 msgid "Open Wallet"
 msgstr ""
 
-#: classes/Login.php:439
+#: classes/Login.php:436
 msgctxt "Loginform button label"
 msgid "⚡️ Login with Bitcoin Lightning"
 msgstr ""
 
-#: classes/Login.php:440
+#: classes/Login.php:437
 msgctxt "Loginform option divider"
 msgid "or"
 msgstr ""
 
-#: classes/Login.php:441
+#: classes/Login.php:438
 msgctxt "Loginform button label"
 msgid "Login with E-Mail"
 msgstr ""
 
-#: classes/Login.php:478
+#: classes/Login.php:475
 msgctxt "QR Code label"
 msgid "⚡️ Login with Bitcoin Lightning"
 msgstr ""
 
-#: classes/Login.php:498
+#: classes/Login.php:495
 msgctxt "QR Code timer short minutes"
 msgid "M"
 msgstr ""
 
-#: classes/Login.php:498
+#: classes/Login.php:495
 msgctxt "QR Code timer short seconds"
 msgid "SS"
 msgstr ""
 
-#: classes/Login.php:503
+#: classes/Login.php:500
 msgctxt "QR Code reinit button label"
 msgid "Try Again"
 msgstr ""
 
-#: classes/Login.php:535
+#: classes/Login.php:532
 msgctxt "js_await_lnurl_auth error"
 msgid "No k1 in request. Please reload and try again."
 msgstr ""
 
-#: classes/Login.php:547
+#: classes/Login.php:544
 msgctxt "js_await_lnurl_auth error"
 msgid "Session has timed out. Please reload and try again."
 msgstr ""
 
-#: classes/Login.php:567
+#: classes/Login.php:564
 msgctxt "js_await_lnurl_auth error"
 msgid "Not yet signed."
 msgstr ""
 
-#: classes/Login.php:580
+#: classes/Login.php:577
 msgctxt "js_await_lnurl_auth error"
 msgid "We failed searching for your user account. Please try again later."
 msgstr ""
@@ -321,47 +321,47 @@ msgctxt "Settings Page Donate Panel"
 msgid "Bitcoin Lightning LNURL"
 msgstr ""
 
-#: classes/Settings.php:301
+#: classes/Settings.php:299
 msgctxt "Settings Page Donate Panel"
 msgid "Other Options"
 msgstr ""
 
-#: classes/Settings.php:302
+#: classes/Settings.php:300
 msgctxt "Settings Page Donate Panel"
 msgid "CoinCorner"
 msgstr ""
 
-#: classes/Settings.php:302
+#: classes/Settings.php:300
 msgctxt "Settings Page Donate Panel"
 msgid "Opennode"
 msgstr ""
 
-#: classes/Settings.php:302
+#: classes/Settings.php:300
 msgctxt "Settings Page Donate Panel"
 msgid "Coinbase"
 msgstr ""
 
-#: classes/Settings.php:302
+#: classes/Settings.php:300
 msgctxt "Settings Page Donate Panel"
 msgid "Paypal"
 msgstr ""
 
-#: classes/Settings.php:321
+#: classes/Settings.php:319
 msgctxt "Settings page heading"
 msgid "Settings › LNURL Auth"
 msgstr ""
 
-#: classes/Settings.php:610
+#: classes/Settings.php:608
 msgctxt "Admin User Columns Custom Column Name"
 msgid "LNURL Auth"
 msgstr ""
 
-#: classes/Settings.php:641
+#: classes/Settings.php:639
 msgctxt "Admin User Edit Custom Settings"
 msgid "LNURL Auth"
 msgstr ""
 
-#: classes/Settings.php:643
+#: classes/Settings.php:641
 msgctxt "Admin User Edit Custom Settings"
 msgid "Public Key"
 msgstr ""
