@@ -129,7 +129,7 @@ class Login {
 			try {
 				$signed = lnurl\auth( $k1, $signed_k1, $node_linking_key );
 			} catch ( \Throwable $th ) {
-				$message = '"' . $th->getMessage() . '": ' . esc_html( _x( 'Verifying signature failed. Please reload the page and try again.', 'lnurl_auth_callback error', 'lnurl-auth' ) );
+				$message = '"' . sanitize_text_field( $th->getMessage() ) . '": ' . esc_html( _x( 'Verifying signature failed. Please reload the page and try again.', 'lnurl_auth_callback error', 'lnurl-auth' ) );
 				lnurl_auth()->Plugin->Transients->set( $k1, false, false, $message );
 				error_log( json_encode( array( $k1, $signed_k1, $node_linking_key, $message ) ) );
 				echo json_encode(
@@ -223,7 +223,7 @@ class Login {
 					// generate and check if username already taken
 					// if already taken, increment number
 					$prefix        = get_option( lnurl_auth()->prefix . '-usercreation-prefix' );
-					$username      = ! empty( $prefix ) ? $prefix : 'LN-';
+					$username      = ! empty( $prefix ) ? sanitize_user( $prefix ) : 'LN-';
 					$original_name = $username;
 					$number        = 1;
 
@@ -231,12 +231,12 @@ class Login {
 						$number++;
 					}
 
-					$username = $username . $number;
+					$username = sanitize_user( $username . $number );
 
 					$domain  = sanitize_url( wp_guess_url() );
 					$domain  = str_replace( 'https://', '', $domain );
 					$domain  = str_replace( 'http://', '', $domain );
-					$user_id = wp_create_user( $username, bin2hex( random_bytes( 16 ) ), strtolower( $username ) . '@' . $domain );
+					$user_id = wp_create_user( $username, bin2hex( random_bytes( 16 ) ), sanitize_email( strtolower( $username ) . '@' . $domain ) );
 
 					// if usercreation failed
 					if ( is_wp_error( $user_id ) ) {
@@ -365,7 +365,7 @@ class Login {
 			lnurl_auth()->Plugin->Transients->set( $k1 );
 
 			// create lnurl
-			$url   = $this->callback_url . '?tag=login&k1=' . $k1 . '&action=login';
+			$url   = $this->callback_url . '?tag=login&k1=' . sanitize_text_field( $k1 ) . '&action=login';
 			$lnurl = lnurl\encodeUrl( $url );
 		}
 
@@ -388,7 +388,7 @@ class Login {
 			}
 		}
 
-		$response->message = array( $_POST );
+		$response->message = rest_sanitize_array( array( $_POST ) );
 
 		$qr = QrCode::create( $lnurl )
 		// correction level
@@ -408,14 +408,11 @@ class Login {
 		$writer = new PngWriter();
 		$result = $writer->write( $qr, $logo );
 
-		$html_qrcode    = '<img src="' . $result->getDataUri() . '" alt="QR Code" width="100%" height="100%">';
-		$html_permalink = '<a href="lightning:' . $lnurl . '">' . _x( 'Open Wallet', 'QR Code permalink label', 'lnurl-auth' ) . '</a>';
-
 		$response->lnurl           = $lnurl;
 		$response->qrcode          = $result;
-		$response->html->qrcode    = $html_qrcode;
-		$response->html->permalink = $html_permalink;
-		$response->k1              = isset( $k1 ) ? $k1 : '';
+		$response->html->qrcode    = '<img src="' . esc_attr( $result->getDataUri() ) . '" alt="QR Code" width="100%" height="100%">';
+		$response->html->permalink = '<a href="lightning:' . esc_html( $lnurl ) . '">' . esc_html( _x( 'Open Wallet', 'QR Code permalink label', 'lnurl-auth' ) ) . '</a>';
+		$response->k1              = isset( $k1 ) ? sanitize_text_field( $k1 ) : '';
 		$response->status          = 'Success';
 
 		return $response;
@@ -433,7 +430,7 @@ class Login {
 			echo '<div class="lnurl-auth-loginform">';
 
 			// qrcode
-			echo do_shortcode( '[lnurl_auth label="true" foreground="#000000" redirect="' . esc_html( $this->redirect_url ) . '"]' );
+			echo do_shortcode( '[lnurl_auth label="true" foreground="#000000" redirect="' . esc_attr( $this->redirect_url ) . '"]' );
 
 			// buttons
 			echo '<button onclick="document.body.classList.toggle(`⚡️`)" class="lnurl-auth-loginform-lightning-button button button-primary button-large"type="button">' . esc_html( _x( '⚡️ Login with Bitcoin Lightning', 'Loginform button label', 'lnurl-auth' ) ) . '</button>';
@@ -452,25 +449,25 @@ class Login {
 	public function lnurl_auth_markup( $atts = false ) {
 		echo '<div class="lnurl-auth"';
 		if ( ( ! empty( $atts ) && isset( $atts['redirect'] ) ) ) {
-			echo ' data-redirect="' . esc_html( $atts['redirect'] ) . '"';
+			echo ' data-redirect="' . esc_attr( $atts['redirect'] ) . '"';
 		}
 		if ( ( ! empty( $atts ) && isset( $atts['foreground'] ) ) ) {
-			echo ' data-foreground="' . esc_html( $atts['foreground'] ) . '"';
+			echo ' data-foreground="' . esc_attr( $atts['foreground'] ) . '"';
 		}
 		if ( ( ! empty( $atts ) && isset( $atts['background'] ) ) ) {
-			echo ' data-background="' . esc_html( $atts['background'] ) . '"';
+			echo ' data-background="' . esc_attr( $atts['background'] ) . '"';
 		}
 		if ( ( ! empty( $atts ) && isset( $atts['logo-foreground'] ) ) ) {
-			echo ' data-logo-foreground="' . esc_html( $atts['logo-foreground'] ) . '"';
+			echo ' data-logo-foreground="' . esc_attr( $atts['logo-foreground'] ) . '"';
 		}
 		if ( ( ! empty( $atts ) && isset( $atts['permalink-foreground'] ) ) ) {
-			echo ' data-permalink-foreground="' . esc_html( $atts['permalink-foreground'] ) . '"';
+			echo ' data-permalink-foreground="' . esc_attr( $atts['permalink-foreground'] ) . '"';
 		}
 		if ( ( ! empty( $atts ) && isset( $atts['timer-foreground'] ) ) ) {
-			echo ' data-timer-foreground="' . esc_html( $atts['timer-foreground'] ) . '"';
+			echo ' data-timer-foreground="' . esc_attr( $atts['timer-foreground'] ) . '"';
 		}
 		if ( ( ! empty( $atts ) && isset( $atts['foreground'] ) ) ) {
-			echo ' style="color: ' . esc_html( $atts['foreground'] ) . '"';
+			echo ' style="color: ' . esc_attr( $atts['foreground'] ) . '"';
 		}
 		echo '>';
 
@@ -525,7 +522,7 @@ class Login {
 	 * @since 1.0.0
 	 */
 	public function js_await_lnurl_auth() {
-		$k1 = isset( $_POST['k1'] ) ? $_POST['k1'] : false;
+		$k1 = isset( $_POST['k1'] ) ? sanitize_text_field( $_POST['k1'] ) : false;
 
 		// if no k1 is provided in request
 		if ( empty( $k1 ) ) {

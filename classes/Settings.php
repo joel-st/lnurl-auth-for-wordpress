@@ -218,7 +218,7 @@ class Settings {
 		echo '<div class="lnurl-auth-admin-column-left">';
 		// echo '<div class="card">';
 
-		echo '<form method="post" action="options.php" class="' . $this->settings_group . '">';
+		echo '<form method="post" action="options.php" class="' . esc_attr( $this->settings_group ) . '">';
 		settings_fields( $this->settings_group );
 
 		echo '<table class="form-table" role="presentation">';
@@ -334,14 +334,14 @@ class Settings {
 				echo '</th>';
 				echo '<td>';
 				if ( ! empty( $data['legend'] ) ) {
-					echo '<div class="' . esc_html( $this->settings_group ) . '-legend' . '">' . esc_html( $data['legend'] ) . '</div>';
+					echo '<div class="' . esc_attr( $this->settings_group ) . '-legend' . '">' . esc_html( $data['legend'] ) . '</div>';
 				}
 				echo '<fieldset>';
 				echo '<legend class="screen-reader-text">';
 				echo '<span>' . esc_html( $data['label'] ) . '</span>';
 				echo '</legend>';
-				echo '<label for="' . esc_html( $name ) . '">';
-				echo '<input name="' . esc_html( $name ) . '" type="checkbox" id="' . esc_html( $name ) . '" ' . checked( 1, 'on' === get_option( $name ), false ) . '> ' . esc_html( $data['label'] );
+				echo '<label for="' . esc_attr( $name ) . '">';
+				echo '<input name="' . esc_attr( $name ) . '" type="checkbox" id="' . esc_attr( $name ) . '" ' . checked( 1, 'on' === get_option( $name ), false ) . '> ' . esc_html( $data['label'] );
 				echo '</label>';
 				echo '</fieldset>';
 				echo '</td>';
@@ -354,13 +354,13 @@ class Settings {
 				echo '</th>';
 				echo '<td>';
 				if ( ! empty( $data['legend'] ) ) {
-					echo '<div class="' . esc_html( $this->settings_group ) . '-legend' . '">' . esc_html( $data['legend'] ) . '</div>';
+					echo '<div class="' . esc_attr( $this->settings_group ) . '-legend' . '">' . esc_html( $data['legend'] ) . '</div>';
 				}
 				echo '<legend class="screen-reader-text">';
 				echo '<span>' . esc_html( $data['label'] ) . '</span>';
 				echo '</legend>';
-				echo '<label for="' . esc_html( $name ) . '">';
-				echo '<input name="' . esc_html( $name ) . '" type="number" step="0.01" id="' . esc_html( $name ) . '" value="' . esc_html( get_option( $name ) ) . '"> ' . esc_html( $data['label'] );
+				echo '<label for="' . esc_attr( $name ) . '">';
+				echo '<input name="' . esc_attr( $name ) . '" type="number" step="0.01" id="' . esc_attr( $name ) . '" value="' . esc_attr( get_option( $name ) ) . '"> ' . esc_html( $data['label'] );
 				echo '</label>';
 				echo '</td>';
 				echo '</tr>';
@@ -372,15 +372,15 @@ class Settings {
 				echo '</th>';
 				echo '<td>';
 				if ( ! empty( $data['legend'] ) ) {
-					echo '<div class="' . esc_html( $this->settings_group ) . '-legend' . '">' . esc_html( $data['legend'] ) . '</div>';
+					echo '<div class="' . esc_attr( $this->settings_group ) . '-legend' . '">' . esc_html( $data['legend'] ) . '</div>';
 				}
 				echo '<legend class="screen-reader-text">';
 				echo '<span>' . esc_html( $data['label'] ) . '</span>';
 				echo '</legend>';
-				echo '<label for="' . esc_html( $name ) . '">';
-				echo '<select name="' . esc_html( $name ) . '" id="' . esc_html( $name ) . '">';
+				echo '<label for="' . esc_attr( $name ) . '">';
+				echo '<select name="' . esc_attr( $name ) . '" id="' . esc_attr( $name ) . '">';
 				foreach ( $data['options'] as $value => $label ) {
-					echo '<option value="' . esc_html( $value ) . '"';
+					echo '<option value="' . esc_attr( $value ) . '"';
 					if ( get_option( $name ) === $value ) {
 						echo ' selected';
 					}
@@ -398,16 +398,16 @@ class Settings {
 				echo '</th>';
 				echo '<td>';
 				if ( ! empty( $data['legend'] ) ) {
-					echo '<div class="' . esc_html( $this->settings_group ) . '-legend' . '">' . esc_html( $data['legend'] ) . '</div>';
+					echo '<div class="' . esc_attr( $this->settings_group ) . '-legend' . '">' . esc_html( $data['legend'] ) . '</div>';
 				}
 				echo '<legend class="screen-reader-text">';
 				echo '<span>' . esc_html( $data['label'] ) . '</span>';
 				echo '</legend>';
-				echo '<label for="' . esc_html( $name ) . '">';
-				echo '<select name="' . esc_html( $name ) . '[]" id="' . esc_html( $name ) . '" multiple="multiple">';
+				echo '<label for="' . esc_attr( $name ) . '">';
+				echo '<select name="' . esc_attr( $name ) . '[]" id="' . esc_attr( $name ) . '" multiple="multiple">';
 
 				foreach ( $data['options'] as $value => $label ) {
-					echo '<option value="' . esc_html( $value ) . '"';
+					echo '<option value="' . esc_attr( $value ) . '"';
 					if ( in_array( $value, get_option( $name ), true ) ) {
 						echo ' selected';
 					}
@@ -425,13 +425,13 @@ class Settings {
 				echo '</th>';
 				echo '<td>';
 				if ( ! empty( $data['legend'] ) ) {
-					echo '<div class="' . esc_html( $this->settings_group ) . '-legend' . '">' . esc_html( $data['legend'] ) . '</div>';
+					echo '<div class="' . esc_attr( $this->settings_group ) . '-legend' . '">' . esc_html( $data['legend'] ) . '</div>';
 				}
 				echo '<legend class="screen-reader-text">';
 				echo '<span>' . esc_html( $data['label'] ) . '</span>';
 				echo '</legend>';
-				echo '<label for="' . esc_html( $name ) . '">';
-				echo '<textarea name="' . esc_html( $name ) . '" id="' . $name . '" rows="6">';
+				echo '<label for="' . esc_attr( $name ) . '">';
+				echo '<textarea name="' . esc_attr( $name ) . '" id="' . esc_attr( $name ) . '" rows="6">';
 				echo esc_html( implode( ', ', (array) get_option( $name ) ) );
 				echo '</textarea>';
 				echo '</label>';
@@ -445,13 +445,13 @@ class Settings {
 				echo '</th>';
 				echo '<td>';
 				if ( ! empty( $data['legend'] ) ) {
-					echo '<div class="' . $this->settings_group . '-legend' . '">' . esc_html( $data['legend'] ) . '</div>';
+					echo '<div class="' . esc_attr( $this->settings_group ) . '-legend' . '">' . esc_html( $data['legend'] ) . '</div>';
 				}
 				echo '<legend class="screen-reader-text">';
 				echo '<span>' . esc_html( $data['label'] ) . '</span>';
 				echo '</legend>';
-				echo '<label for="' . esc_html( $name ) . '">';
-				echo '<input name="' . esc_html( $name ) . '" type="text" id="' . esc_html( $name ) . '" value="' . esc_html( get_option( $name ) ) . '">';
+				echo '<label for="' . esc_attr( $name ) . '">';
+				echo '<input name="' . esc_attr( $name ) . '" type="text" id="' . esc_attr( $name ) . '" value="' . esc_attr( get_option( $name ) ) . '">';
 				echo '</label>';
 				echo '</td>';
 				echo '</tr>';
@@ -463,13 +463,13 @@ class Settings {
 				echo '</th>';
 				echo '<td>';
 				if ( ! empty( $data['legend'] ) ) {
-					echo '<div class="' . $this->settings_group . '-legend' . '">' . esc_html( $data['legend'] ) . '</div>';
+					echo '<div class="' . esc_attr( $this->settings_group ) . '-legend' . '">' . esc_html( $data['legend'] ) . '</div>';
 				}
 				echo '<legend class="screen-reader-text">';
 				echo '<span>' . esc_html( $data['label'] ) . '</span>';
 				echo '</legend>';
-				echo '<label for="' . esc_html( $name ) . '">';
-				echo '<input name="' . esc_html( $name ) . '" type="url" id="' . esc_html( $name ) . '" value="' . esc_html( get_option( $name ) ) . '">';
+				echo '<label for="' . esc_attr( $name ) . '">';
+				echo '<input name="' . esc_attr( $name ) . '" type="url" id="' . esc_attr( $name ) . '" value="' . esc_attr( get_option( $name ) ) . '">';
 				echo '</label>';
 				echo '</td>';
 				echo '</tr>';
@@ -639,7 +639,7 @@ class Settings {
 		echo '<h2 style="margin-top:2.6em;">' . esc_html( _x( 'LNURL Auth', 'Admin User Edit Custom Settings', 'lnurl-auth' ) ) . '</h2>';
 		echo '<table class="form-table"><tr>';
 		echo '<th><label for="' . lnurl_auth()->Plugin->Login->user_wallet_identifier . '">' . esc_html( _x( 'Public Key', 'Admin User Edit Custom Settings', 'lnurl-auth' ) ) . '</label></th>';
-		echo '<td><input class="regular-text ltr" type="text" name="' . lnurl_auth()->Plugin->Login->user_wallet_identifier . '" value="' . esc_html( get_the_author_meta( lnurl_auth()->Plugin->Login->user_wallet_identifier, $user->ID ) ) . '" /></td>';
+		echo '<td><input class="regular-text ltr" type="text" name="' . lnurl_auth()->Plugin->Login->user_wallet_identifier . '" value="' . esc_attr( get_the_author_meta( lnurl_auth()->Plugin->Login->user_wallet_identifier, $user->ID ) ) . '" /></td>';
 		echo '</tr></table>';
 	}
 
