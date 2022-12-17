@@ -41,6 +41,8 @@ A demo WordPress installation with LNURL Auth is available [here](https://lnurl-
 
 Overall, LNURL Auth login is a convenient and secure way for users of the Lightning Network to log into third-party services using their Lightning accounts. It allows users to easily and securely log into services without needing to create separate accounts or handle sensitive information. This process typically involves the user scanning a LNURL with their Lightning wallet app.
 
+The LNURL auth QR code or URL contains a unique and time-sensitive text string. This text string is sent to the visitor's wallet. The visitor's wallet signs this text string with the private key and sends back the response with the signed text string. This signature can then be validated to confirm the visitor's identity.
+
 Read the specs here: https://github.com/lnurl/luds/blob/luds/04.md 
 
 == Vendors ==
