@@ -435,7 +435,7 @@ class Login {
 			// buttons
 			echo '<button onclick="document.body.classList.toggle(`⚡️`)" class="lnurl-auth-loginform-lightning-button button button-primary button-large"type="button">' . esc_html( _x( '⚡️ Login with Bitcoin Lightning', 'Loginform button label', 'lnurl-auth' ) ) . '</button>';
 			echo '<div class="lnurl-auth-loginform-divider"><hr class="lnurl-auth-loginform-hr"><span class="lnurl-auth-loginform-divider-label">' . esc_html( _x( 'or', 'Loginform option divider', 'lnurl-auth' ) ) . '</span></div>';
-			echo '<button onclick="document.body.classList.toggle(`⚡️`)" class="lnurl-auth-loginform-wordpress-button button button-primary button-large" type="button">' . esc_html( _x( 'Login with E-Mail', 'Loginform button label', 'lnurl-auth' ) ) . '</button>';
+			echo '<button onclick="(function(){document.body.classList.toggle(`⚡️`);document.getElementById(`user_pass`).disabled = false;})();return false;" class="lnurl-auth-loginform-wordpress-button button button-primary button-large" type="button">' . esc_html( _x( 'Login with E-Mail', 'Loginform button label', 'lnurl-auth' ) ) . '</button>';
 
 			echo '</div>';
 		}
