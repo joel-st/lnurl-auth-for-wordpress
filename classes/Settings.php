@@ -46,7 +46,7 @@ class Settings {
 				),
 			),
 			lnurl_auth()->prefix . '-redirect-url'        => array(
-				'legend'  => esc_html( _x( 'Default redirect URL after sucessfull LNURL auth.', 'Settings page setting label', 'lnurl-auth' ) ),
+				'legend'  => esc_html( _x( 'Default redirect URL after sucessfull LNURL Auth.', 'Settings page setting label', 'lnurl-auth' ) ),
 				'label'   => esc_html( _x( 'Redirect URL', 'Settings page setting label', 'lnurl-auth' ) ),
 				'type'    => 'url',
 				'default' => esc_html( get_site_url() ),
@@ -64,7 +64,7 @@ class Settings {
 				'default' => array(),
 			),
 			lnurl_auth()->prefix . '-node-allowlist'      => array(
-				'legend'  => esc_html( _x( "Comma separated list of Node ID's. Nodes from this list will be allowed to use LNURL auth on this website.", 'Settings page setting label', 'lnurl-auth' ) ),
+				'legend'  => esc_html( _x( "Comma separated list of Node ID's. Nodes from this list will be allowed to use LNURL Auth on this website.", 'Settings page setting label', 'lnurl-auth' ) ),
 				'label'   => esc_html( _x( 'Node Allowlist', 'Settings page setting label', 'lnurl-auth' ) ),
 				'type'    => 'strings-comma-separated',
 				'default' => array(),

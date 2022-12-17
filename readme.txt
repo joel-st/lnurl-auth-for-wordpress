@@ -10,7 +10,7 @@ Stable tag: 1.0.0
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-This plugin provides LNURL auth for WordPress. Login to WordPress with Bitcoin Lightning ⚡️
+This plugin provides LNURL Auth for WordPress. Login to WordPress with Bitcoin Lightning ⚡️
 
 == Features ==
 
@@ -20,11 +20,16 @@ With **LNURL Auth for WordPress** LNURL Auth is now available for WordPress. Add
 * Custom Callback URL
 * Custom Redirect URL
 * Node Bann- & Allowlist
-* Naming Options For New Users
-* Set Role(s) For New Users
+* Enable/Disable User Registrations
+* Naming Options for New Users
+* Set Role(s) for New Users
 * Toggle Login Options
 
 *If the setting to create users is enabled in the plugin settings, the plugin will automatically generate new users. Be wise, with great power comes great responsibility.*
+
+== Demo ==
+
+A demo WordPress installation with LNURL Auth is available [here](https://lnurl-auth-for-wordpress.joelstuedle.ch/). 
 
 == Installation ==
 
@@ -34,9 +39,7 @@ With **LNURL Auth for WordPress** LNURL Auth is now available for WordPress. Add
 
 == LNURL Auth ==
 
-LNURL auth login is a specific type of LNURL authentication process that is used to log a user into a third-party service using their Lightning account. This process typically involves the user scanning a LNURL with their Lightning wallet app.
-
-Overall, LNURL auth login is a convenient and secure way for users of the Lightning Network to log into third-party services using their Lightning accounts. It allows users to easily and securely log into services without needing to create separate accounts or handle sensitive information.
+Overall, LNURL Auth login is a convenient and secure way for users of the Lightning Network to log into third-party services using their Lightning accounts. It allows users to easily and securely log into services without needing to create separate accounts or handle sensitive information. This process typically involves the user scanning a LNURL with their Lightning wallet app.
 
 Read the specs here: https://github.com/lnurl/luds/blob/luds/04.md 
 
@@ -44,6 +47,11 @@ Read the specs here: https://github.com/lnurl/luds/blob/luds/04.md
 
 * eza/lnurl-php: https://github.com/eza/lnurl-php
 * endroid/qr-code https://github.com/endroid/qr-code
+
+== Screenshots ==
+
+1. LNURL Auth on a WordPress login page.
+2. LNURL Auth settings.
 
 == Changelog ==
 
