@@ -583,7 +583,7 @@ class Login {
 		// authenticate user
 		wp_set_current_user( $user_id );
 		wp_set_auth_cookie( $user_id, true );
-		do_action( 'wp_login', get_userdata( $user_id )->user_login );
+		do_action( 'wp_login', get_userdata( $user_id )->user_login, get_user_by( 'id', $user_id ) );
 
 		// delete transient
 		lnurl_auth()->Plugin->Transients->delete( $k1 );
