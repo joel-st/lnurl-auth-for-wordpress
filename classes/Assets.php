@@ -193,7 +193,6 @@ class Assets {
 							if (response.status === `Signed`) {
 								const urlSearchParams = new URLSearchParams(window.location.search);
 								const params = Object.fromEntries(urlSearchParams.entries());
-								console.log(params, !!params.redirect_to, params.redirect_to);
 								if (!!params.redirect_to) { window.location.href = params.redirect_to; return; }
 								if (element.dataset.redirect) { window.location.href = element.dataset.redirect; return; }
 								window.location.href = response.redirect; return;
