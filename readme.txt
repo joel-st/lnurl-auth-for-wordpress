@@ -6,7 +6,7 @@ Tags: LNURL, Authentication, Login, Bitcoin, Lightning
 Requires at least: 6.0
 Requires PHP: 8.0.15
 Tested up to: 6.1.1
-Stable tag: 1.0.1
+Stable tag: 1.0.11
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -56,6 +56,9 @@ Read the specs here: https://github.com/lnurl/luds/blob/luds/04.md
 2. LNURL Auth settings.
 
 == Changelog ==
+
+= 1.0.11 =
+* Respect redirect_to query parameter on wp-login.php.
 
 = 1.0.1 =
 * Provide user object to wp_login action.
