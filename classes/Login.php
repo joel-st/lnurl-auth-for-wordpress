@@ -21,6 +21,10 @@ use Endroid\QrCode\Writer\ValidationException;
  * @author Joel Stüdle <joel.stuedle@gmail.com>
  * @since 1.0.0
  */
+
+// https://www.php.net/manual/en/class.allowdynamicproperties.php
+#[\AllowDynamicProperties]
+
 class Login {
 
 	public $parent_slug            = '';
@@ -131,8 +135,8 @@ class Login {
 			} catch ( \Throwable $th ) {
 				$message = '"' . sanitize_text_field( $th->getMessage() ) . '": ' . esc_html( _x( 'Verifying signature failed. Please reload the page and try again.', 'lnurl_auth_callback error', 'lnurl-auth' ) );
 				lnurl_auth()->Plugin->Transients->set( $k1, false, false, $message );
-				error_log( json_encode( array( $k1, $signed_k1, $node_linking_key, $message ) ) );
-				echo json_encode(
+				// error_log( json_encode( array( $k1, $signed_k1, $node_linking_key, $message ) ) );
+				echo wp_json_encode(
 					array(
 						'status' => 'ERROR',
 						'reason' => $message,
@@ -148,7 +152,7 @@ class Login {
 				if ( empty( $transient ) || ( isset( $transient['user_id'] ) && ! empty( $transient['user_id'] ) ) ) {
 					$message = esc_html( _x( 'No session for this k1. Please reload the page and try again.', 'lnurl_auth_callback error', 'lnurl-auth' ) );
 					lnurl_auth()->Plugin->Transients->set( $k1, false, false, $message );
-					error_log( json_encode( array( $k1, $signed_k1, $node_linking_key, $message ) ) );
+					// error_log( json_encode( array( $k1, $signed_k1, $node_linking_key, $message ) ) );
 					echo wp_json_encode(
 						array(
 							'status' => 'ERROR',
@@ -164,7 +168,7 @@ class Login {
 				if ( in_array( $node_linking_key, $banlist, true ) ) {
 					$message = esc_html( _x( 'Sorry, your node is banned from this site.', 'lnurl_auth_callback error', 'lnurl-auth' ) );
 					lnurl_auth()->Plugin->Transients->set( $k1, false, false, $message );
-					error_log( json_encode( array( $k1, $signed_k1, $node_linking_key, $message ) ) );
+					// error_log( json_encode( array( $k1, $signed_k1, $node_linking_key, $message ) ) );
 					echo wp_json_encode(
 						array(
 							'status' => 'ERROR',
@@ -180,7 +184,7 @@ class Login {
 				if ( ! empty( $allowlist ) && ! in_array( $node_linking_key, $allowlist, true ) ) {
 					$message = esc_html( _x( 'Sorry, your node has no access to this site.', 'lnurl_auth_callback error', 'lnurl-auth' ) );
 					lnurl_auth()->Plugin->Transients->set( $k1, false, false, $message );
-					error_log( json_encode( array( $k1, $signed_k1, $node_linking_key, $message ) ) );
+					// error_log( json_encode( array( $k1, $signed_k1, $node_linking_key, $message ) ) );
 					echo wp_json_encode(
 						array(
 							'status' => 'ERROR',
@@ -208,7 +212,7 @@ class Login {
 					if ( 'on' !== get_option( lnurl_auth()->prefix . '-usercreation' ) ) {
 						$message = esc_html( _x( 'Registrations are disabled. We are not able to create an account for you.', 'lnurl_auth_callback error', 'lnurl-auth' ) );
 						lnurl_auth()->Plugin->Transients->set( $k1, false, false, $message );
-						error_log( json_encode( array( $k1, $signed_k1, $node_linking_key, $message ) ) );
+						// error_log( json_encode( array( $k1, $signed_k1, $node_linking_key, $message ) ) );
 						echo wp_json_encode(
 							array(
 								'status' => 'ERROR',
@@ -242,7 +246,7 @@ class Login {
 					if ( is_wp_error( $user_id ) ) {
 						$message = esc_html( _x( 'We failed to create a user for you. Please try again later.', 'lnurl_auth_callback error', 'lnurl-auth' ) );
 						lnurl_auth()->Plugin->Transients->set( $k1, false, false, $message );
-						error_log( json_encode( array( $k1, $signed_k1, $node_linking_key, $message ) ) );
+						// error_log( json_encode( array( $k1, $signed_k1, $node_linking_key, $message ) ) );
 						echo wp_json_encode(
 							array(
 								'status' => 'ERROR',
@@ -271,7 +275,7 @@ class Login {
 					} else {
 						$message = esc_html( _x( 'We failed searching for your user account. Please try again later.', 'lnurl_auth_callback error', 'lnurl-auth' ) );
 						lnurl_auth()->Plugin->Transients->set( $k1, false, false, $message );
-						error_log( json_encode( array( $k1, $signed_k1, $node_linking_key, $message ) ) );
+						// error_log( json_encode( array( $k1, $signed_k1, $node_linking_key, $message ) ) );
 						echo wp_json_encode(
 							array(
 								'status' => 'ERROR',
@@ -285,15 +289,15 @@ class Login {
 				// set transient to signal lnurl auth ok
 				lnurl_auth()->Plugin->Transients->set( $k1, true, $user_id );
 
-				echo json_encode( array( 'status' => 'OK' ) );
+				echo wp_json_encode( array( 'status' => 'OK' ) );
 				die;
 			}
 
 			// why are you down here?
 			$message = esc_html( _x( 'Something went wrong. Please reload the page and try again.', 'lnurl_auth_callback error', 'lnurl-auth' ) );
 			lnurl_auth()->Plugin->Transients->set( $k1, false, false, $message );
-			error_log( json_encode( array( $k1, $signed_k1, $node_linking_key, $message ) ) );
-			echo json_encode(
+			// error_log( json_encode( array( $k1, $signed_k1, $node_linking_key, $message ) ) );
+			echo wp_json_encode(
 				array(
 					'status' => 'ERROR',
 					'reason' => $message,

@@ -10,6 +10,10 @@ namespace JoelMelon\Plugins\LNURLAuth\Plugin;
  * @author Joel Stüdle <joel.stuedle@gmail.com>
  * @since 1.0.0
  */
+
+// https://www.php.net/manual/en/class.allowdynamicproperties.php
+#[\AllowDynamicProperties]
+
 class Assets {
 
 	/**
@@ -92,12 +96,12 @@ class Assets {
 			this.lnurlAuthRequest();
 		};
 
-		// function to cycle up until background found 
+		// function to cycle up until background found
 		Element.prototype.lnurlGetRealBackgroundColor = function() {
 			const element = this;
 			const transparent = "rgba(0, 0, 0, 0)";
 			if (!element) return transparent;
-	
+
 			var bg = getComputedStyle(element).backgroundColor;
 			if (bg === "transparent" || bg === "rgba(0, 0, 0, 0)" && null !== element.parentElement) {
 					return element.parentElement.lnurlGetRealBackgroundColor();
@@ -106,12 +110,12 @@ class Assets {
 			}
 		};
 
-		// function to cycle up until color found 
+		// function to cycle up until color found
 		Element.prototype.lnurlGetRealColor = function() {
 			const element = this;
 			const transparent = "rgba(0, 0, 0, 0)";
 			if (!element) return transparent;
-	
+
 			var color = getComputedStyle(element).color;
 			if (color === "transparent" || color === "rgba(0, 0, 0, 0)" && null !== element.parentElement) {
 					return element.parentElement.lnurlGetRealColor();
@@ -138,7 +142,7 @@ class Assets {
 				// console.log(element, element.lnurlIsInViewPort(), `abort`);
 				return;
 			}
-			
+
 			const data = new FormData();
 			data.append( "action", "js_initialize_lnurl_auth" );
 			data.append( "qrcode_width", Math.round(element.querySelector("." + lnurlAuthElementClass + "-qrcode").getBoundingClientRect().width ) ? Math.round(element.querySelector("." + lnurlAuthElementClass + "-qrcode").getBoundingClientRect().width ) : element.getBoundingClientRect().width );
@@ -147,7 +151,7 @@ class Assets {
 
 			element.classList.add(`⚡️`);
 			// console.log("Request from:", element);
-			
+
 			fetch("' . admin_url( 'admin-ajax.php' ) . '", {
 				method: "POST",
 				credentials: "same-origin",
@@ -220,7 +224,7 @@ class Assets {
 						if (minutes.innerText != minutes_remaining) minutes.innerText = minutes_remaining;
 						if (seconds.innerText != mseconds_remaining) seconds.innerText = (String(mseconds_remaining).length <= 1 ? "0" + mseconds_remaining : mseconds_remaining);
 						if (
-							clock_img && clock_img.alt != clock_icon || 
+							clock_img && clock_img.alt != clock_icon ||
 							!clock_img && clock.innerText == clock_icon
 						) {
 							clock.innerText = clock_icon;
@@ -239,7 +243,7 @@ class Assets {
 			const lnurlAuthInstances = document.getElementsByClassName(lnurlAuthElementClass);
 			for (let lnurlAuthInstance of lnurlAuthInstances) {
 				intersectionObserver.observe(lnurlAuthInstance);
-				lnurlAuthInstance.lnurlAuthRequest();	
+				lnurlAuthInstance.lnurlAuthRequest();
 				lnurlAuthInstance.querySelector("." + lnurlAuthElementClass + "-reinit").addEventListener("click", function() {
 					lnurlAuthInstance.lnurlAuthReset();
 				});
@@ -255,18 +259,18 @@ class Assets {
 	 */
 	public function lnurl_auth_css() {
 		return '
-		.lnurl-auth, 
-		.lnurl-auth-qrcode, 
+		.lnurl-auth,
+		.lnurl-auth-qrcode,
 		.lnurl-auth-permalink { position: relative; width: 100%; }
 
 		.lnurl-auth { display: flex; flex-wrap: wrap; color: inherit; background-color: inherit; }
-		
+
 		@keyframes lnurl_auth_loading_shimmer {
 			0% { background-position: -100vw 0 }
 			100% {background-position: 100vw 0}
 		}
 		.lnurl-auth-qrcode:empty,
-		.lnurl-auth-permalink:empty { 
+		.lnurl-auth-permalink:empty {
 			animation-duration: 2s;
 			animation-fill-mode: forwards;
 			animation-iteration-count: infinite;
@@ -278,7 +282,7 @@ class Assets {
 			opacity: .2;
 		}
 		.lnurl-auth-qrcode:empty + .lnurl-auth-qrcode-logo { opacity: .2; }
-		
+
 		.lnurl-auth-label { flex: 0 0 100%; margin-bottom: 16px !important; color: inherit; text-align: center; }
 		.lnurl-auth-qrcode-wrapper { position: relative; width: 100%; padding-top: 100%; flex: 0 0 100%; margin-bottom: 16px; overflow: hidden; }
 		.lnurl-auth-qrcode { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
@@ -293,7 +297,7 @@ class Assets {
 		.lnurl-auth-timer { flex: 0 0 5em; text-align: right; margin: 0; min-height: 1.5em; display: flex; align-items: center; justify-content: flex-end; }
 		.lnurl-auth-timer-clock { position: relative; margin-top: .15em; margin-right: .25em; }
 		.lnurl-auth-timer-minutes, .lnurl-auth-timer-seconds, .lnurl-auth-timer-separator { color: inherit; font-size: .9em; opacity: .4; }
-		
+
 		.lnurl-auth-message-wrapper { display: none; justify-content: center; align-items: center; position: absolute; left: 0; top: 0; width: 100%; height: 100%; border: 1px solid; text-align: center; }
 		.lnurl-auth-message-scroll-wrapper { padding: 2em; max-height: calc(100% - 4em); overflow: scroll; }
 		.lnurl-auth-reinit { margin-top: 1.25em; background: inherit; appearance: none; border: 1px solid; padding: 0.3em 0.5em; color: inherit; cursor: pointer; }
@@ -322,10 +326,10 @@ class Assets {
 		#loginform .lnurl-auth-qrcode-logo { color: #F7931A }
 		#loginform .lnurl-auth-permalink a { color: #F7931A }
 		#loginform .lnurl-auth-permalink a:hover, #loginform .lnurl-auth-permalink a:active, #loginform .lnurl-auth-permalink a:visited, { color: #EF8F1A }
-		
+
 		body:not(.⚡️) #loginform .lnurl-auth { display: none; }
 		body:not(.⚡️) #loginform .lnurl-auth-loginform-wordpress-button { display: none; }
-		
+
 		body.⚡️ #loginform .lnurl-auth-loginform-lightning-button { display: none; }
 		body.⚡️ #loginform .lnurl-auth-loginform-wordpress-button { display: inline-block; }
 		body.⚡️ #loginform > p:first-child {display: none; }

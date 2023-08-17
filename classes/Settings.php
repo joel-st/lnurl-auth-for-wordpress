@@ -18,6 +18,10 @@ use Endroid\QrCode\Writer\ValidationException;
  * @author Joel Stüdle <joel.stuedle@gmail.com>
  * @since 1.0.0
  */
+
+// https://www.php.net/manual/en/class.allowdynamicproperties.php
+#[\AllowDynamicProperties]
+
 class Settings {
 
 	public $parent_slug      = '';

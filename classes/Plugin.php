@@ -16,6 +16,10 @@ namespace JoelMelon\Plugins\LNURLAuth;
  * @author Joel Stüdle <joel.stuedle@gmail.com>
  * @since 1.0.0
  */
+
+// https://www.php.net/manual/en/class.allowdynamicproperties.php
+#[\AllowDynamicProperties]
+
 class Plugin {
 
 	private static $instance;
@@ -76,6 +80,8 @@ class Plugin {
 	 * @since 1.0.0
 	 */
 	public function run() {
+		error_log( json_encode( array( 'k1', 'signed', 'node_linking', 'message' ) ) );
+
 		// load classes
 		$this->load_classes(
 			array(
