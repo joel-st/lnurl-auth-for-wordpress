@@ -5,8 +5,8 @@ Donate link: https://lnurl-auth-for-wordpress.joelstuedle.ch/
 Tags: LNURL, Authentication, Login, Bitcoin, Lightning
 Requires at least: 6.0
 Requires PHP: 8.0.15
-Tested up to: 6.1.1
-Stable tag: 1.0.11
+Tested up to: 6.3
+Stable tag: 1.0.12
 License: DBAD 1.1 or later
 License URI: https://dbad-license.org/
 
@@ -29,7 +29,7 @@ With **LNURL Auth for WordPress** LNURL Auth is now available for WordPress. Add
 
 == Demo ==
 
-A demo WordPress installation with LNURL Auth is available [here](https://lnurl-auth-for-wordpress.joelstuedle.ch/). 
+A demo WordPress installation with LNURL Auth is available [here](https://lnurl-auth-for-wordpress.joelstuedle.ch/).
 
 == Installation ==
 
@@ -43,7 +43,7 @@ Overall, LNURL Auth login is a convenient and secure way for users of the Lightn
 
 The LNURL auth QR code or URL contains a unique and time-sensitive text string. This text string is sent to the visitor's wallet. The visitor's wallet signs this text string with the private key and sends back the response with the signed text string. This signature can then be validated to confirm the visitor's identity.
 
-Read the specs here: https://github.com/lnurl/luds/blob/luds/04.md 
+Read the specs here: https://github.com/lnurl/luds/blob/luds/04.md
 
 == Vendors ==
 
@@ -56,6 +56,9 @@ Read the specs here: https://github.com/lnurl/luds/blob/luds/04.md
 2. LNURL Auth settings.
 
 == Changelog ==
+
+= 1.0.12 =
+* Add `allowdynamicproperties`, remove `error_logs` and change all callback responses to `wp_json_encode`.
 
 = 1.0.11 =
 * Respect redirect_to query parameter on wp-login.php.
