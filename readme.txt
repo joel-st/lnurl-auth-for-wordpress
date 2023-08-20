@@ -6,7 +6,7 @@ Tags: LNURL, Authentication, Login, Bitcoin, Lightning
 Requires at least: 6.0
 Requires PHP: 8.0.15
 Tested up to: 6.3
-Stable tag: 1.0.12
+Stable tag: 1.0.13
 License: DBAD 1.1 or later
 License URI: https://dbad-license.org/
 
@@ -56,6 +56,9 @@ Read the specs here: https://github.com/lnurl/luds/blob/luds/04.md
 2. LNURL Auth settings.
 
 == Changelog ==
+
+= 1.0.13 =
+* Set error reporting to `false` inside auth callback function, so we do not have any php warnings/errors in our json response.
 
 = 1.0.12 =
 * Add `allowdynamicproperties`, remove `error_logs` and change all callback responses to `wp_json_encode`.
