@@ -117,7 +117,7 @@ class Login {
 		isset( $_GET['key'] )
 		) {
 			// set error reporting to false so we do not have any php warings/errors in our json response
-			if (function_exists('error_reporting')) {
+			if (function_exists('ini_set')) {
 				ini_set( 'display_errors', 0 );
 			}
 
