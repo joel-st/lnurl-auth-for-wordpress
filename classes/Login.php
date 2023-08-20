@@ -116,6 +116,11 @@ class Login {
 		isset( $_GET['sig'] ) &&
 		isset( $_GET['key'] )
 		) {
+			// set error reporting to false so we do not have any php warings/errors in our json response
+			if (function_exists('error_reporting')) {
+				ini_set( 'display_errors', 0 );
+			}
+
 			$k1               = sanitize_text_field( $_GET['k1'] );
 			$signed_k1        = sanitize_text_field( $_GET['sig'] );
 			$node_linking_key = sanitize_text_field( $_GET['key'] );
