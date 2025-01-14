@@ -51,7 +51,7 @@ class Plugin {
 				include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 			}
 
-			self::$instance->plugin_header = get_plugin_data( $file );
+			self::$instance->plugin_header = get_plugin_data( $file, false, /* $translate */ false );
 			self::$instance->name          = self::$instance->plugin_header['Name'];
 			self::$instance->domain_path   = basename( dirname( __DIR__ ) ) . self::$instance->plugin_header['DomainPath'];
 			self::$instance->prefix        = 'lnurl-auth';
@@ -94,7 +94,7 @@ class Plugin {
 		);
 
 		// Load the textdomain
-		add_action( 'plugins_loaded', array( $this, 'load_text_domain' ) );
+		add_action( 'init', array( $this, 'load_text_domain' ) );
 
 		// Shortcode
 		add_shortcode( 'lnurl_auth', array( $this, 'lnurl_auth_shortcode' ) );
